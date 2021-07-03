@@ -1,0 +1,11 @@
+FROM gcc:11.1
+
+RUN apt update && apt-get install -y openssl libssl-dev
+
+# Install CMake 3.20 from source
+RUN cd /tmp && curl -OL https://github.com/Kitware/CMake/releases/download/v3.20.1/cmake-3.20.1.tar.gz \
+    && tar xf cmake-3.20.1.tar.gz && rm -f *.gz \
+    && cd cmake-3.20.1 && ./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release  && make -j8 && make install
+
+# docker build -t gcc:dev -f Dockerfile.dev .
+# docker run --rm -it -v C:\data\docker_examples\gcc_cmake_source_build:
